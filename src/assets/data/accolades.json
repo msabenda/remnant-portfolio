@@ -1,0 +1,6 @@
+[
+  { "id": 1, "title": "APIs Secured", "target": 120 },
+  { "id": 2, "title": "AI Audits", "target": 45 },
+  { "id": 3, "title": "Vulnerabilities Found", "target": 300 },
+  { "id": 4, "title": "Years Experience", "target": 8 }
+]
