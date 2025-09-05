@@ -39,29 +39,11 @@
 
 <script setup lang="ts">
 import { useThemeStore } from '@/stores/theme';
+import { usePostStore } from '@/stores/posts';
 
 const themeStore = useThemeStore();
-
-const posts = [
-  {
-    id: 1,
-    title: 'Breaking Down API Vulnerabilities',
-    excerpt: 'A deep dive into common API security flaws and how to exploit them ethically.',
-    image: '/assets/images/blog/api-vuln.jpg',
-  },
-  {
-    id: 2,
-    title: 'Prompt Injection in LLMs',
-    excerpt: 'Learn how attackers craft inputs to manipulate or override the intended behavior of large language models.',
-    image: '/assets/images/blog/prompt.png',
-  },
-  {
-    id: 3,
-    title: 'AI Model Poisoning: A Case Study',
-    excerpt: 'Exploring real-world attacks on AI systems and mitigation strategies.',
-    image: '/assets/images/blog/ai-poison.avif',
-  },
-];
+const postStore = usePostStore();
+const posts = postStore.posts;
 </script>
 
 <style scoped>

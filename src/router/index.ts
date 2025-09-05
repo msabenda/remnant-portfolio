@@ -1,4 +1,3 @@
-// src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/components/Home.vue';
 import BlogList from '@/components/BlogList.vue';
@@ -11,7 +10,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/remnant-portfolio/'), // Match vite.config.ts base
   routes,
 });
 
