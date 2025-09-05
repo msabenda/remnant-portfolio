@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --noEmit",
-    "watch:css": "tailwindcss -i ./src/index.css -o ./dist/output.css --watch"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
@@ -22,6 +22,7 @@
     "pinia": "^2.2.4"
   },
   "devDependencies": {
+    "@types/node": "^22.7.4",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "@vitejs/plugin-vue": "^5.1.4",
@@ -31,6 +32,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "eslint-plugin-vue": "^9.29.0",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
