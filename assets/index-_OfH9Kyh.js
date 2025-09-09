@@ -206,7 +206,7 @@
       `},{id:4,title:"Open Source Community Thwarts Massive npm Supply Chain Attack",category:"Findings",tags:["npm","Supply Chain","Cybersecurity"],excerpt:"A phishing campaign led to the compromise of a major npm maintainer account, risking billions of installs. The open-source community and security teams acted swiftly to neutralize the threat.",image:new URL("/remnant-portfolio/assets/images/blog/npm.webp",import.meta.url).href,date:"September 9, 2025",readingTime:8,content:`
         <h2>Introduction</h2>
         <p>On <strong>September 8, 2025</strong>, the open-source ecosystem faced what could have been one of the most damaging <strong>supply chain attacks</strong> in npm history. A prominent developer’s npm account was compromised, leading to malicious versions of highly popular JavaScript packages being published. Fortunately, the swift response from the open-source community and security teams prevented a large-scale disaster.</p>
-        <img src="${new URL("/remnant-portfolio/assets/images/blog/nx-npm.png",import.meta.url).href}" alt="npm Supply Chain Attack Intro" class="w-full h-55 object-cover rounded-lg my-4">
+        <img src="${new URL("/remnant-portfolio/assets/images/blog/2FA.avif",import.meta.url).href}" alt="npm Supply Chain Attack Intro" class="w-full h-55 object-cover rounded-lg my-4">
 
         <h2>Main Content</h2>
         <h3>How the Attack Happened</h3>
