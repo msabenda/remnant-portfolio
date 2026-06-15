@@ -13,7 +13,9 @@ export default {
       }
     },
     fontFamily: {
-      sans: ['"Anonymous Pro"', 'monospace']
+      sans: ['"Anonymous Pro"', 'monospace'],
+      // Restored: a root `fontFamily` replaces Tailwind defaults, so `font-mono` must be defined explicitly.
+      mono: ['"Roboto Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
     }
   },
   plugins: [require('flowbite/plugin')]

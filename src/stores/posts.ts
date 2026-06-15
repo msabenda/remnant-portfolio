@@ -10,7 +10,7 @@ export const usePostStore = defineStore('posts', () => {
       tags: ['API', 'Security', 'Penetration Testing'],
       excerpt: 'A deep dive into common API vulnerabilities, their real-world implications, and practical mitigation strategies.',
       image: new URL('/assets/images/blog/api-vuln.jpg', import.meta.url).href,
-      date: 'August 10, 2025',
+      date: 'January 12, 2026',
       readingTime: 8,
       content: `
         <h2>Introduction</h2>
@@ -86,7 +86,7 @@ export const usePostStore = defineStore('posts', () => {
       tags: ['AI', 'LLMs', 'Security'],
       excerpt: 'Exploring the mechanics of prompt injection attacks in large language models and how to defend against them.',
       image: new URL('/assets/images/blog/prompt.png', import.meta.url).href,
-      date: 'August 15, 2025',
+      date: 'February 3, 2026',
       readingTime: 9,
       content: `
         <h2>Introduction</h2>
@@ -153,7 +153,7 @@ export const usePostStore = defineStore('posts', () => {
       tags: ['AI', 'Security', 'Data Poisoning'],
       excerpt: 'How data poisoning attacks compromise AI model integrity and what developers can do to mitigate the threat.',
       image: new URL('/assets/images/blog/ai-poison.avif', import.meta.url).href,
-      date: 'August 20, 2025',
+      date: 'March 18, 2026',
       readingTime: 7,
       content: `
         <h2>Introduction</h2>
@@ -214,6 +214,169 @@ export const usePostStore = defineStore('posts', () => {
         </details>
         <details><summary>Can poisoned models be fixed?</summary>
           <p>Yes, in some cases retraining from a clean dataset or using robust training methods can mitigate or reverse the effects.</p>
+        </details>
+      `
+    },
+    /* Post id 4 images: zerotrust-api-cover.jpg, zerotrust-api-intro.webp, zerotrust-api-gateway.webp, zerotrust-api-conclusion.jpg → public/assets/images/blog/ */
+    {
+      id: 4,
+      title: 'Zero Trust API Architecture: Identity, Policy, and Every Request',
+      category: 'Findings',
+      tags: ['API', 'Security', 'Zero Trust'],
+      excerpt:
+        'Zero Trust is not a vendor slogan—it is how you design APIs so every request is verified: strong identity, least privilege, TLS, and useful telemetry, without trusting the network.',
+      image: new URL('/assets/images/blog/zerotrust-api-cover.jpg', import.meta.url).href,
+      date: 'April 19, 2026',
+      readingTime: 9,
+      content: `
+        <h2>Why APIs and Zero Trust fit together</h2>
+        <p>Classic designs often implied: “If it came from our VPC or partner link, it is probably fine.” That breaks down when credentials leak, workloads are compromised, or attackers land inside the network through phishing or a misconfigured endpoint. <strong>Zero Trust</strong> flips the assumption: there is no trusted interior—only verified sessions, explicit policy, and continuous evidence.</p>
+        <p>HTTP APIs are the contract between users, devices, and microservices. They are the natural place to enforce that model, because every meaningful action already crosses an API boundary.</p>
+
+        <h2>Core ideas you can apply this week</h2>
+        <ul>
+          <li><strong>Explicit identity</strong> for humans, devices, and services—not “10.0.0.0/8 is trusted.”</li>
+          <li><strong>Least privilege</strong> per route and per resource (tenant, object id, role).</li>
+          <li><strong>Encrypt in transit</strong> for client APIs and, where practical, for east–west calls.</li>
+          <li><strong>Observable decisions</strong>: who called what, allow vs deny, with correlation IDs across services.</li>
+        </ul>
+        <img src="${new URL('/assets/images/blog/zerotrust-api-intro.webp', import.meta.url).href}" alt="API and service mesh style connectivity" class="w-full h-55 object-cover rounded-lg my-4">
+
+        <h2>Authentication: prove who is calling</h2>
+        <p>For public and partner APIs, <strong>OAuth 2.0</strong> and <strong>OpenID Connect</strong> remain the common baseline for users. For machine callers, use <strong>client credentials</strong>, signed JWTs, or platform workload identity (e.g., SPIFFE-style IDs) so each pod or job has its own credential—not one shared “service password” in a vault everyone reads.</p>
+        <p>Operational habits matter: short-lived access tokens, rotation of signing keys, validation of <code>aud</code> (audience) and scopes on <em>every</em> request, and avoiding long-lived API keys in browser code. Authentication answers <strong>who</strong>; it should never be conflated with authorization, which answers <strong>what they may do on this specific resource</strong>.</p>
+
+        <h2>Authorization: gateway plus domain logic</h2>
+        <p>An <strong>API gateway</strong> (or edge proxy) is the right layer for TLS termination, coarse authorization, rate limits, JWT validation, geo rules, and WAF-style filtering. It is <em>not</em> the right sole layer for every rule—especially <strong>broken object level authorization (BOLA)</strong> checks, where the answer depends on business data (“Is this medical record in this patient’s care team?”).</p>
+        <p>Put fine-grained checks in the owning service or a dedicated <strong>policy engine</strong>, fed by a consistent attribute model: user id, tenant, resource owner, labels. Anti-patterns include trusting a <code>role</code> field from the JSON body, issuing a token that can read all tenants, or caching “user can access resource X” forever without invalidation when membership changes.</p>
+        <img src="${new URL('/assets/images/blog/zerotrust-api-gateway.webp', import.meta.url).href}" alt="Policy enforcement at API gateway and services" class="w-full h-55 object-cover rounded-lg my-4">
+
+        <h2>Transport, segmentation, and blast radius</h2>
+        <p>Use <strong>TLS</strong> everywhere customers touch your APIs, and prefer encrypted or identity-bound channels between internal services too (mesh, mTLS, or cloud-native equivalents). Pair that with <strong>allow lists</strong> for service-to-service calls: service A may call payment validation, but not hit admin maintenance routes—implemented with network policies, mesh config, or explicit application checks, all tied to the same identity story.</p>
+        <p>The goal is lateral movement that <strong>stops at the next hop</strong> when a token or workload is stolen, instead of free rein on the flat network.</p>
+
+        <h2>Logging without drowning in PII</h2>
+        <p>Log <strong>security-relevant metadata</strong>: authenticated principal, route template, tenant id, decision (allow/deny), policy version, latency, error class. Avoid full request/response bodies in central logs unless you have a clear retention and redaction program—APIs often carry PII and secrets. Feed identity providers and gateways <strong>risk signals</strong> (new device, impossible travel, spike in failures) to step up MFA or throttle suspicious keys.</p>
+
+        <h2>A pragmatic rollout order</h2>
+        <ol>
+          <li>Inventory routes (OpenAPI, gateway configs, traffic captures) and remove anonymous “internal only” exceptions.</li>
+          <li>Mandate TLS and authenticated callers on every external route; standardize JWT validation at the edge.</li>
+          <li>Add per-resource authorization tests for your top ten sensitive object types (accounts, orders, documents).</li>
+          <li>Tighten service credentials: separate identities per workload, narrow scopes, rotate keys.</li>
+          <li>Layer mesh or mTLS for the highest-risk segments (payments, PII, admin) first, then expand.</li>
+        </ol>
+
+        <h2>Takeaway</h2>
+        <p><strong>Zero Trust API architecture</strong> means every HTTP call carries a verifiable identity, hits explicit policy at enforcement points, uses strong transport, and emits enough telemetry to investigate incidents—without assuming the network is clean. It complements pentesting and WAFs: those find mistakes; Zero Trust limits how far a mistake or stolen credential can spread.</p>
+        <img src="${new URL('/assets/images/blog/zerotrust-api-conclusion.jpg', import.meta.url).href}" alt="Security architecture review" class="w-full h-48 object-cover rounded-lg my-4">
+
+        <h2>FAQ</h2>
+        <details><summary>Is Zero Trust only for large enterprises?</summary>
+          <p>No. A single cluster or region still benefits from gateway JWT validation, workload-scoped credentials, and namespace-level network rules—the same pattern at smaller scale.</p>
+        </details>
+        <details><summary>Does Zero Trust replace penetration testing?</summary>
+          <p>No. Pentesting finds implementation bugs; Zero Trust reduces blast radius when credentials leak or a service is misconfigured.</p>
+        </details>
+        <details><summary>Where should BOLA checks live?</summary>
+          <p>In the service that owns the data or a shared authorization layer with access to the data model—not only at the edge, because the edge cannot evaluate every object relationship.</p>
+        </details>
+        <details><summary>Quick first milestone?</summary>
+          <p>TLS + authentication on 100% of routes, plus one automated test per sensitive resource pattern that must fail when IDs are swapped between tenants.</p>
+        </details>
+      `
+    },
+    {
+      id: 5,
+      title: 'DevSecOps Is Not a Checkbox: Embedding Security Into the SDLC',
+      category: 'Findings',
+      tags: ['DevSecOps', 'API Security', 'SDLC', 'Shift Left'],
+      excerpt: 'Security can no longer belong to just the Security Team. Modern DevSecOps is about embedding security into every stage of the Software Development Lifecycle.',
+      image: new URL('/assets/images/blog/devsecops-cover.png', import.meta.url).href,
+      date: 'June 15, 2026',
+      readingTime: 7,
+      content: `
+        <h2>Security is not a final checkbox before deployment</h2>
+        <p>Many organizations invest heavily in CI/CD, containers, cloud infrastructure, automation, and observability — yet security is often introduced too late in the process. The reality is simple: APIs are the backbone of modern applications. They power mobile apps, fintech platforms, AI systems, cloud-native architectures, and virtually every digital service we use.</p>
+        <p>As we accelerate software delivery, we are also accelerating our attack surface. That is why modern DevSecOps is not about <em>adding</em> security to software. It is about <strong>embedding security into every stage of the Software Development Lifecycle (SDLC)</strong>.</p>
+        <img src="${new URL('/assets/images/blog/devsecops-intro.png', import.meta.url).href}" alt="DevSecOps Pipeline shield" class="w-full h-55 object-cover rounded-lg my-4">
+
+        <h2>Secure by Design</h2>
+        <p>Security must begin before the first line of code is written. Threat modeling, risk assessments, and security requirements should be part of the design phase — not retrofitted after a pentest finds critical flaws two days before launch. A <strong>threat model</strong> identifies what you are building, what could go wrong, and what controls reduce that risk. It is the cheapest place to fix problems.</p>
+        <p>Questions every team should ask during design:</p>
+        <ul>
+          <li>What data does this service handle? (PII, financial, PHI?)</li>
+          <li>Who should (and should not) access each endpoint?</li>
+          <li>What happens when an input is malformed or malicious?</li>
+          <li>Where are the trust boundaries?</li>
+        </ul>
+
+        <h2>Secure Coding Practices</h2>
+        <p>Developers are the first line of defense. Writing secure code means understanding common vulnerability classes — injection, broken authentication, excessive data exposure, and misconfiguration — and knowing how to avoid them in the framework and language being used.</p>
+        <p>Key practices include:</p>
+        <ul>
+          <li><strong>Input validation</strong> — never trust user-supplied data. Validate type, length, range, and format server-side.</li>
+          <li><strong>Parameterized queries</strong> — prevent SQL/NoSQL injection by never concatenating user input into query strings.</li>
+          <li><strong>Output encoding</strong> — escape data before rendering it in HTML, JSON, or XML responses.</li>
+          <li><strong>Least privilege</strong> — every function, service, and API key should have the minimum permissions needed to do its job.</li>
+          <li><strong>Authentication and session management</strong> — use well-vetted libraries (OAuth 2.0, OIDC) instead of building custom auth.</li>
+        </ul>
+
+        <h2>Automated Security Testing</h2>
+        <p>Security testing must be automated and run as part of the CI/CD pipeline, not scheduled as a quarterly event. This is the <strong>Shift Left</strong> principle — find vulnerabilities as early as possible in the development lifecycle.</p>
+        <ul>
+          <li><strong>SAST (Static Analysis)</strong> — scan source code for security patterns and known vulnerabilities. Runs on every commit.</li>
+          <li><strong>SCA (Software Composition Analysis)</strong> — check open-source dependencies against CVE databases. Alert on critical and high-severity findings.</li>
+          <li><strong>DAST (Dynamic Analysis)</strong> — test running applications for runtime vulnerabilities like XSS, CSRF, and misconfigurations.</li>
+          <li><strong>Secret Scanning</strong> — detect hardcoded credentials, API keys, and tokens before they reach the repository.</li>
+          <li><strong>Fuzz Testing</strong> — send malformed or unexpected inputs to find crashes, memory leaks, and unhandled exceptions.</li>
+        </ul>
+        <img src="${new URL('/assets/images/blog/devsecops-main.jpeg', import.meta.url).href}" alt="DevSecOps workflow diagram" class="w-full h-55 object-cover rounded-lg my-4">
+
+        <h2>Continuous Monitoring</h2>
+        <p>Security does not stop at deployment. Production systems need real-time visibility into what is happening. This includes:</p>
+        <ul>
+          <li><strong>API monitoring</strong> — track anomalous traffic patterns, failed authentication attempts, and unusual data volumes.</li>
+          <li><strong>Runtime protection</strong> — tools like RASP (Runtime Application Self-Protection) can detect and block attacks in real time.</li>
+          <li><strong>SIEM integration</strong> — feed security events into a centralized logging and alerting platform.</li>
+          <li><strong>Incident response</strong> — have a playbook ready. Know who to page, what to look for, and how to roll back if needed.</li>
+        </ul>
+
+        <h2>Security as Code</h2>
+        <p>Infrastructure, policies, and security controls should be defined in code — versioned, reviewed, and deployed through the same pipeline as application code. This makes security repeatable, auditable, and scalable.</p>
+        <ul>
+          <li><strong>IaC scanning</strong> — check Terraform, CloudFormation, and Kubernetes manifests against security best practices (e.g., CIS benchmarks).</li>
+          <li><strong>Policy as Code</strong> — use tools like OPA (Open Policy Agent) to enforce authorization rules consistently across services.</li>
+          <li><strong>Compliance as Code</strong> — automate evidence collection for SOC 2, PCI-DSS, or HIPAA controls.</li>
+        </ul>
+
+        <h2>Security is a Culture, Not a Department</h2>
+        <p>The most successful engineering teams are not the ones that deploy the fastest. They are the ones that can deploy fast while maintaining security, reliability, compliance, and customer trust.</p>
+        <p><strong>Developers</strong> must write secure code. <strong>Operations teams</strong> must automate security controls. <strong>Security teams</strong> must empower innovation — not block it. When everyone owns security, it stops being a bottleneck and becomes a competitive advantage.</p>
+        <img src="${new URL('/assets/images/blog/devsecops-cover.png', import.meta.url).href}" alt="Security Culture" class="w-full h-48 object-cover rounded-lg my-4">
+
+        <h2>A Practical Starting Checklist</h2>
+        <ul>
+          <li>Add SAST scanning to your CI pipeline this week</li>
+          <li>Create a threat model for your newest service</li>
+          <li>Remove hardcoded secrets from source code</li>
+          <li>Set up alerts for 401/403 spikes</li>
+          <li>Run an SCA scan on all dependencies</li>
+          <li>Review API routes for missing authentication</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <details><summary>What is the difference between DevOps and DevSecOps?</summary>
+          <p>DevSecOps integrates security practices into the DevOps pipeline at every stage — from design through deployment and monitoring — instead of treating security as a separate, post-development gate.</p>
+        </details>
+        <details><summary>Does DevSecOps slow down development?</summary>
+          <p>Not when done right. Automated security gates in CI/CD catch issues early, when they are cheapest to fix. Teams that adopt DevSecOps often ship faster because they spend less time firefighting production security incidents.</p>
+        </details>
+        <details><summary>What tools should I start with?</summary>
+          <p>Start with a SAST tool (Semgrep, SonarQube), SCA (Dependabot, Snyk), and secret scanning (GitGuardian, truffleHog). Add DAST and IaC scanning as your maturity grows.</p>
+        </details>
+        <details><summary>How do I convince my team to adopt DevSecOps?</summary>
+          <p>Start small. Pick one pipeline, add one security gate, and measure the results. Show how many issues were caught before they reached production. Data speaks louder than slides.</p>
         </details>
       `
     },

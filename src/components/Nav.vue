@@ -2,7 +2,7 @@
 <template>
   <nav class="fixed w-full top-0 z-40 shadow-sm transition-all duration-300" :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800/90 text-white' : 'bg-white/90 text-gray-900'">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center backdrop-blur-sm">
-      <router-link to="/" class="text-2xl font-bold text-blue-600 font-mono hover:text-blue-500 transition-colors">remnant_</router-link>
+      <router-link to="/" class="text-2xl font-bold text-blue-600 font-mono hover:text-blue-500 transition-colors">remnant01</router-link>
       <div class="hidden md:flex space-x-8 font-mono text-sm">
         <router-link v-for="link in links" :key="link.to" :to="link.to" class="relative group hover:text-blue-500 transition-colors duration-200">
           <span class="block transform transition-transform duration-300 group-hover:rotate-y-180">{{ link.text }}</span>

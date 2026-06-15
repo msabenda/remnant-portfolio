@@ -4,7 +4,7 @@
       <h1 class="text-4xl md:text-6xl font-bold mb-6 font-mono" :class="themeStore.currentTheme === 'dark' ? 'text-white' : 'text-gray-900'">
         <span class="inline-block">{{ typedText }}</span><span class="cursor" :class="themeStore.currentTheme === 'dark' ? 'bg-white' : 'bg-gray-900'"></span>
       </h1>
-      <p class="text-2xl md:text-3xl text-blue-600 mb-4 font-mono">remnant_ | Securing APIs & AI Systems</p>
+      <p class="text-2xl md:text-3xl text-blue-600 mb-4 font-mono">remnant01 | Securing APIs & AI Systems</p>
       <p class="text-lg md:text-xl mb-4 max-w-3xl mx-auto font-sans" :class="themeStore.currentTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'">
         With over 5+ years of experience, I specialize in API penetration testing and AI security to protect your web applications and LLMs from advanced threats.
       </p>

@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "node -e \"require('fs').copyFileSync('dist/index.html','dist/404.html')\"",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "deploy": "gh-pages -d dist"
+    "deploy": "sh -c 'unset GIT_ASKPASS SSH_ASKPASS; export GIT_TERMINAL_PROMPT=1; exec node ./node_modules/gh-pages/bin/gh-pages.js -d dist'",
+    "deploy:token": "sh -c 'unset GIT_ASKPASS SSH_ASKPASS; if [ -z \"$GITHUB_TOKEN\" ]; then echo >&2 \"Set GITHUB_TOKEN to a PAT (repo write). Create one: https://github.com/settings/tokens\"; exit 1; fi; exec node ./node_modules/gh-pages/bin/gh-pages.js -d dist -r \"https://${GITHUB_TOKEN}@github.com/msabenda/remnant-portfolio.git\"'"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",

@@ -1,14 +1,14 @@
 <template>
   <section id="about" class="py-20" :class="themeStore.currentTheme === 'dark' ? 'bg-black' : 'bg-gray-100'">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-blue-500 mb-12 text-center font-mono">About remnant_</h2>
+      <h2 class="text-4xl font-bold text-blue-500 mb-12 text-center font-mono">About Me</h2>
       
       <div class="flex flex-col lg:flex-row items-center gap-12 max-w-6xl mx-auto">
         <!-- Profile Image with Social Hover -->
         <div class="relative group w-64 h-64 flex-shrink-0">
           <img 
             src="/assets/images/profile.jpg" 
-            alt="Remnant - API & AI Security Hacker"
+            alt="Msambili Ndaga — API security specialist and pentester"
             class="w-full h-full object-cover rounded-full border-4 border-blue-500/30 group-hover:border-blue-500 transition-all duration-500"
           >
           <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/70 rounded-full transition-all duration-500">
@@ -38,18 +38,96 @@
         </div>
 
         <!-- About Text -->
-        <div class="flex-1">
-          <h3 class="text-2xl font-bold mb-4 font-mono" :class="themeStore.currentTheme === 'dark' ? 'text-white' : 'text-black'">API specialist | AI security researcher</h3>
-          <p class="mb-4 font-mono" :class="themeStore.currentTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'">
-            I'm remnant_ (Msambili Ndaga) a rogue API and AI security specialist with 5+ years of experience. I hack to protect modern systems to expose weaknesses before the black hats do. From APIs to bleeding-edge of AI models, I’ve fortified digital assets and train teams to think like attackers(Hackers Mindset).
-          </p>
-          <p class="mb-6 font-mono" :class="themeStore.currentTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'">
-           I specialize in breaking the things you think are secure: exposed endpoints, model inference APIs, and data supply chains. In a world where AI meets attack surface, I’m the one who maps the blind spots before adversaries do. Want to stay ahead of zero-days and prompt injection? I’m already there.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <span class="px-3 py-1 rounded-full text-sm font-mono" :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800 text-blue-400' : 'bg-gray-200 text-blue-600'">API Penetration</span>
-            <span class="px-3 py-1 rounded-full text-sm font-mono" :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800 text-blue-400' : 'bg-gray-200 text-blue-600'">AI Security testing</span>
-            <span class="px-3 py-1 rounded-full text-sm font-mono" :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800 text-blue-400' : 'bg-gray-200 text-blue-600'">Offensive Teaming</span>
+        <div class="flex-1 space-y-4">
+          <div class="flex flex-wrap gap-2">
+            <p
+              class="inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-mono sm:text-sm"
+              :class="themeStore.currentTheme === 'dark' ? 'border-blue-500/40 bg-blue-500/10 text-blue-300' : 'border-blue-200 bg-blue-50 text-blue-800'"
+            >
+              <span class="font-semibold">APIsec University</span>
+              <span class="opacity-70">certified</span>
+            </p>
+            <p
+              class="inline-flex flex-wrap items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-mono sm:text-sm"
+              :class="themeStore.currentTheme === 'dark' ? 'border-blue-500/40 bg-blue-500/10 text-blue-300' : 'border-blue-200 bg-blue-50 text-blue-800'"
+            >
+              <span class="font-semibold">Wallarm Security</span>
+              <span class="opacity-60" aria-hidden="true">·</span>
+              <span>API Security Certified Associate</span>
+            </p>
+            <p
+              class="inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-mono sm:text-sm"
+              :class="themeStore.currentTheme === 'dark' ? 'border-blue-500/40 bg-blue-500/10 text-blue-300' : 'border-blue-200 bg-blue-50 text-blue-800'"
+            >
+              <span class="font-semibold">President</span>
+              <span class="opacity-70">Cyber Club DIT</span>
+            </p>
+          </div>
+
+          <h3
+            class="text-2xl font-bold font-mono"
+            :class="themeStore.currentTheme === 'dark' ? 'text-white' : 'text-black'"
+          >
+            Msambili Ndaga — API security specialist &amp; pentester
+          </h3>
+
+          <div
+            class="space-y-5 text-base leading-relaxed font-sans"
+            :class="themeStore.currentTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'"
+          >
+            <p>
+              Also known as <span class="font-mono font-semibold text-blue-500 dark:text-blue-400">remnant01</span>,
+              Msambili Ndaga is an API security specialist and pentester who hardens API-powered systems through
+              penetration testing, secure design reviews, and awareness training. He is certified through
+              <strong class="font-semibold text-blue-600 dark:text-blue-400">APIsec University</strong> and
+              <strong class="font-semibold text-blue-600 dark:text-blue-400">Wallarm Security</strong> (API Security
+              Certified Associate). His work maps to the
+              <strong class="font-semibold text-blue-600 dark:text-blue-400">OWASP API Security Top 10</strong> and
+              secure SDLC practice; he tests with Postman, Burp Suite, and OWASP ZAP and partners with engineering teams
+              to ship safer APIs—from OAuth 2.0, OpenID Connect, and JWT through encryption and data protection across
+              distributed systems.
+            </p>
+            <p>
+              He is an active API security advocate in developer communities—covering common attack paths and defensive
+              patterns—and he serves as
+              <strong class="font-semibold text-blue-600 dark:text-blue-400">President of Cyber Club DIT</strong>,
+              leading and mentoring students in cybersecurity. Through leadership, communication, and strategic
+              planning, he promotes hands-on learning, technical excellence, and the long-term growth and prosperity of
+              the club.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <span
+              class="rounded-full px-3 py-1 text-sm font-mono"
+              :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800 text-blue-400' : 'bg-gray-200 text-blue-600'"
+            >
+              Wallarm API Sec Associate
+            </span>
+            <span
+              class="rounded-full px-3 py-1 text-sm font-mono"
+              :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800 text-blue-400' : 'bg-gray-200 text-blue-600'"
+            >
+              OWASP API Top 10
+            </span>
+            <span
+              class="rounded-full px-3 py-1 text-sm font-mono"
+              :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800 text-blue-400' : 'bg-gray-200 text-blue-600'"
+            >
+              APIsec University
+            </span>
+            <span
+              class="rounded-full px-3 py-1 text-sm font-mono"
+              :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800 text-blue-400' : 'bg-gray-200 text-blue-600'"
+            >
+              Burp · ZAP · Postman
+            </span>
+            <span
+              class="rounded-full px-3 py-1 text-sm font-mono"
+              :class="themeStore.currentTheme === 'dark' ? 'bg-gray-800 text-blue-400' : 'bg-gray-200 text-blue-600'"
+            >
+              OAuth 2.0 · OIDC · JWT
+            </span>
           </div>
         </div>
       </div>
