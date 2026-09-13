@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
-const isGitHubPages = process.env.GITHUB_ACTIONS === 'true' || process.env.GITHUB_PAGES === 'true';
+const isProduction = process.env.NODE_ENV === 'production';
+const isGitHubPages = isProduction || process.env.GITHUB_PAGES === 'true';
 const repository = 'remnant-portfolio';
 const basePath = isGitHubPages ? `/${repository}` : '';
 
