@@ -26,6 +26,7 @@ export const articles = [
   { slug: 'data-poisoning-in-ai-models', title: 'Data Poisoning in AI Models', date: '2026-03-18', category: 'AI security', description: 'How compromised training data can alter model behavior and trust.', image: assetPath('/assets/images/blog/ai-poison.avif'), legacyId: 3 },
   { slug: 'zero-trust-api-architecture', title: 'Zero Trust API Architecture', date: '2026-04-19', category: 'Architecture', description: 'Identity, policy, transport, and telemetry for every API request.', image: assetPath('/assets/images/blog/zerotrust-api-cover.jpg'), legacyId: 4 },
   { slug: 'devsecops-is-not-a-checkbox', title: 'DevSecOps Is Not a Checkbox', date: '2026-06-15', category: 'DevSecOps', description: 'Embedding security into the software lifecycle without turning it into ceremony.', image: assetPath('/assets/images/blog/devsecops-cover.png'), legacyId: 5 },
+  { slug: 'from-sdk-to-system-choosing-developer-tools', title: 'From SDK to System: Choosing Developer Tools That Fit', date: '2026-09-13', category: 'Developer experience', description: 'A practical guide to selecting SDKs, APIs, frameworks, and development tools for secure, maintainable systems.', image: assetPath('/assets/images/blog/sdk-developer-tools-system.svg'), legacyId: 6 },
 ] as const;
 
 export const roles = [
