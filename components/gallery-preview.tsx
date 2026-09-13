@@ -14,8 +14,11 @@ export function GalleryPreview() {
 
   return <>
     <div className="gallery-preview">
-      {preview.map(item => <figure className="gallery-item" key={item.group}>
-        <div className={`gallery-media gallery-${item.format ?? 'standard'}`}><Image src={item.src!} alt={item.alt} fill sizes="(max-width: 800px) 100vw, 33vw"/></div>
+      {preview.map(item => <figure className="gallery-item" key={item.group} tabIndex={0}>
+        <div className={`gallery-media gallery-${item.format ?? 'standard'}`}>
+          <Image src={item.src!} alt={item.alt} fill sizes="(max-width: 800px) 100vw, 33vw"/>
+          <div className="gallery-hover-copy" aria-hidden="true"><strong>{item.group}</strong><span>{item.context}</span></div>
+        </div>
         <figcaption><div><strong>{item.title}</strong><span>{item.group}</span></div>{item.date && <time>{item.date}</time>}</figcaption>
       </figure>)}
     </div>
