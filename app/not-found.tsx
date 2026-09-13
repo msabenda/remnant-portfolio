@@ -1,0 +1,1 @@
+import Link from 'next/link'; export default function NotFound(){return <div className="page-hero shell"><p className="eyebrow">404 · ROUTE NOT FOUND</p><h1>Trust boundary missed.</h1><p>The requested route does not exist.</p><div className="actions"><Link className="button primary" href="/">Return home</Link></div></div>}
