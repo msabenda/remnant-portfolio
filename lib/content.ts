@@ -27,6 +27,7 @@ export const articles = [
   { slug: 'zero-trust-api-architecture', title: 'Zero Trust API Architecture', date: '2026-04-19', category: 'Architecture', description: 'Identity, policy, transport, and telemetry for every API request.', image: assetPath('/assets/images/blog/zerotrust-api-cover.jpg'), legacyId: 4 },
   { slug: 'devsecops-is-not-a-checkbox', title: 'DevSecOps Is Not a Checkbox', date: '2026-06-15', category: 'DevSecOps', description: 'Embedding security into the software lifecycle without turning it into ceremony.', image: assetPath('/assets/images/blog/devsecops-cover.png'), legacyId: 5 },
   { slug: 'from-sdk-to-system-choosing-developer-tools', title: 'From SDK to System: Choosing Developer Tools That Fit', date: '2026-09-13', category: 'Developer experience', description: 'A practical guide to selecting SDKs, APIs, frameworks, and development tools for secure, maintainable systems.', image: assetPath('/assets/images/blog/sdk-developer-tools-system.svg'), legacyId: 6 },
+  { slug: 'the-agentic-era-autonomy-needs-accountability', title: 'The Agentic Era: Autonomy Needs Accountability', date: '2026-10-06', category: 'Agentic AI security', description: 'How AI agents are changing software - and why identity, secure APIs, least privilege, and human oversight must evolve with them.', image: assetPath('/assets/images/blog/agentic-era-autonomy.jpg'), legacyId: 7 },
 ] as const;
 
 export const roles = [
